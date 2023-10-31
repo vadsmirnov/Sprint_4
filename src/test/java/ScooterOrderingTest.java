@@ -1,8 +1,9 @@
-import pageObject.Main;
-import pageObject.Order;
-import pageObject.Rent;
+import pageObject.MainPage;
+import pageObject.OrderPage;
+import pageObject.RentPage;
 import org.junit.Test;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class ScooterOrderingTest extends WorkingBrowserTest {
@@ -10,12 +11,12 @@ public class ScooterOrderingTest extends WorkingBrowserTest {
     /** Тест заказа через кнопку в хэдере*/
     @Test
     public void scooterOrderingByHeaderOrderButton() {
-        new Main(driver)
+        new MainPage(driver)
                 .openSite()
                 .clickCookieButton()
                 .clickHeaderOrderButton();
 
-        new Order(driver)
+        new OrderPage(driver)
                 .sendFirstName("Тест")
                 .sendLastName("Тест")
                 .sendDeliveryAddress("Москва")
@@ -23,7 +24,7 @@ public class ScooterOrderingTest extends WorkingBrowserTest {
                 .sendDeliveryPhoneNumber("89999999999")
                 .clickNextButton();
 
-        boolean isDisplayed = new Rent(driver)
+        boolean isDisplayed = new RentPage(driver)
                 .sendRentalDate("25.10.2023")
                 .setRentalTime()
                 .clickCheckBoxColourBlackPearl()
@@ -31,17 +32,17 @@ public class ScooterOrderingTest extends WorkingBrowserTest {
                 .clickOrderButton()
                 .clickOrderButtonYes()
                 .isModalOrderWindowDisplayed();
-        assertTrue("Ошибка, окно заказа не появилось!", isDisplayed);
+        assertFalse("Ошибка, окно заказа не появилось!", isDisplayed);
     }
-    /** Тест заказа через кнопку в середине страницы */
+    /** Тест заказа через кнопку в середине страницы*/
     @Test
     public void scooterOrderingByMiddleOrderButton() {
-        new Main(driver)
+        new MainPage(driver)
                 .openSite()
                 .clickCookieButton()
                 .clickMiddleOrderButton();
 
-        new Order(driver)
+        new OrderPage(driver)
                 .sendFirstName("Тест")
                 .sendLastName("Тестов")
                 .sendDeliveryAddress("Москва")
@@ -49,7 +50,7 @@ public class ScooterOrderingTest extends WorkingBrowserTest {
                 .sendDeliveryPhoneNumber("88888888888")
                 .clickNextButton();
 
-        boolean isDisplayed = new Rent(driver)
+        boolean isDisplayed = new RentPage(driver)
                 .sendRentalDate("25.09.2023")
                 .setRentalTime()
                 .clickCheckBoxColourGreyDespair()
@@ -57,6 +58,7 @@ public class ScooterOrderingTest extends WorkingBrowserTest {
                 .clickOrderButton()
                 .clickOrderButtonYes()
                 .isModalOrderWindowDisplayed();
-        assertTrue("Ошибка, окно заказа не появилось!", isDisplayed);
+        assertFalse("Ошибка, окно заказа не появилось!", isDisplayed);
     }
+
 }

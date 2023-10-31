@@ -6,14 +6,14 @@ import org.openqa.selenium.WebDriver;
 
 
 /** Элементы страницы оформления заказа */
-public class Order {
+public class OrderPage {
     private final WebDriver driver;
 
     /** Локатор поля "Имя" */
-    private final By FirstName = By.xpath(".//input[@placeholder='* Имя']");
+    private final By firstName = By.xpath(".//input[@placeholder='* Имя']");
 
     /** Локатор поля "Фамилия" */
-    private final By LastName = By.xpath(".//input[@placeholder='* Фамилия']");
+    private final By lastName = By.xpath(".//input[@placeholder='* Фамилия']");
 
     /** Локатор поля "Адрес: куда привезти заказ" */
     private final By deliveryAddress = By.xpath(".//input[@placeholder='* Адрес: куда привезти заказ']");
@@ -25,34 +25,34 @@ public class Order {
     private final By deliveryPhoneNumber = By.xpath(".//input[@placeholder='* Телефон: на него позвонит курьер']");
 
     /** Локатор кнопки "Далее" */
-    private final By NextButton = By.xpath(".//button[(@class ='Button_Button__ra12g Button_Middle__1CSJM' and text()='Далее')]");
+    private final By nextButton = By.xpath(".//button[(@class ='Button_Button__ra12g Button_Middle__1CSJM' and text()='Далее')]");
 
     /** Конструктор класса */
-    public Order(WebDriver driver) {
+    public OrderPage(WebDriver driver) {
         this.driver = driver;
     }
 
     /** Методы для работы с элементами страницы заказа */
 
     /** Ввод имени  */
-    public Order sendFirstName(String firstName) {
-        driver.findElement(FirstName).sendKeys(firstName);
+    public OrderPage sendFirstName(String firstName) {
+        driver.findElement(this.firstName).sendKeys(firstName);
         return this;
     }
     /** Ввод фамилии */
-    public Order sendLastName(String lastName) {
-        driver.findElement(LastName).sendKeys(lastName);
+    public OrderPage sendLastName(String lastName) {
+        driver.findElement(this.lastName).sendKeys(lastName);
         return this;
     }
 
     /** Ввод адреса доставки */
-    public Order sendDeliveryAddress(String address) {
+    public OrderPage sendDeliveryAddress(String address) {
         driver.findElement(deliveryAddress).sendKeys(address);
         return this;
     }
 
     /** Выбор станции метро */
-    public Order selectMetroStation(String metroStationFromOrder) {
+    public OrderPage selectMetroStation(String metroStationFromOrder) {
         driver.findElement(deliveryMetroStation).click();
         driver.findElement(deliveryMetroStation).sendKeys(metroStationFromOrder);
         driver.findElement(deliveryMetroStation).sendKeys(Keys.DOWN,Keys.ENTER);
@@ -60,14 +60,14 @@ public class Order {
     }
 
     /** Ввод номера телефона */
-    public Order sendDeliveryPhoneNumber(String phoneNumber) {
+    public OrderPage sendDeliveryPhoneNumber(String phoneNumber) {
         driver.findElement(deliveryPhoneNumber).sendKeys(phoneNumber);
         return this;
     }
 
     /** Нажать на кнопку "Далее" */
-    public Order clickNextButton() {
-        driver.findElement(NextButton).click();
+    public OrderPage clickNextButton() {
+        driver.findElement(nextButton).click();
         return this;
     }
 

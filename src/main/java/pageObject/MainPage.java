@@ -10,9 +10,9 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import static org.junit.Assert.assertEquals;
 
 /** Элементы главной страницы сайта: */
-public class Main {
-    public Main(WebDriver driver) {
-        Main.driver = driver;
+public class MainPage {
+    public MainPage(WebDriver driver) {
+        MainPage.driver = driver;
     }
 
     private static WebDriver driver;
@@ -52,31 +52,31 @@ public class Main {
 
 
     /** Открыть сайт */
-    public final Main openSite() {
+    public final MainPage openSite() {
         driver.get("https://qa-scooter.praktikum-services.ru/");
         return this;
     }
 
     /** Нажать на кнопку "да все привыкли" */
-    public Main clickCookieButton() {
+    public MainPage clickCookieButton() {
         driver.findElement(cookieButton).click();
         return this;
     }
 
     /** Нажать на кнопку "Заказать" в шапке сайта */
-    public Main clickHeaderOrderButton() {
+    public MainPage clickHeaderOrderButton() {
         driver.findElement(headerOrderButton).click();
         return this;
     }
 
     /** Нажать на кнопку "Заказать" в середине сайта */
-    public Main clickMiddleOrderButton() {
+    public MainPage clickMiddleOrderButton() {
         driver.findElement(middleOrderButton).click();
         return this;
     }
 
     /** Прокрутка главной страницы до последнего элемента списка */
-    public Main scrollPageToEndOfList() {
+    public MainPage scrollPageToEndOfList() {
         WebElement lastQuestionArrow = driver.findElement(By.id(dropDownQuestionsArray[7]));
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", lastQuestionArrow);
         return this;
@@ -98,7 +98,7 @@ public class Main {
     }
 
     /** Нажать на кнопку вопроса */
-    public Main clickQuestionButton(String questionButtonLocator) {
+    public MainPage clickQuestionButton(String questionButtonLocator) {
         new WebDriverWait(driver, 5)
                 .until(ExpectedConditions.elementToBeClickable(By.id(questionButtonLocator)));
         driver.findElement(By.id(questionButtonLocator)).click();

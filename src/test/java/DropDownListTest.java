@@ -1,5 +1,5 @@
 import org.junit.Test;
-import pageObject.Main;
+import pageObject.MainPage;
 
 public class DropDownListTest extends WorkingBrowserTest{
 
@@ -17,16 +17,16 @@ public class DropDownListTest extends WorkingBrowserTest{
 
     /** Тест соответствия текста в выпадающем списке */
     @Test
-    public void CheckDropDownListText() {
+    public void checkDropDownListText() {
 
-        new Main(driver)
+        new MainPage(driver)
                 .openSite()
                 .clickCookieButton()
                 .scrollPageToEndOfList();
 
         for (int i = 0; i < 8; i++) {
-            Main.clickQuestionArrow(i);
-            Main.checkTextInOpenPanel(expectedAnswersList[i], i);
+            MainPage.clickQuestionArrow(i);
+            MainPage.checkTextInOpenPanel(expectedAnswersList[i], i);
         }
     }
 

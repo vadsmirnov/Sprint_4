@@ -2,7 +2,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.openqa.selenium.By;
-import pageObject.Main;
+import pageObject.MainPage;
 
 import static org.junit.Assert.assertEquals;
 
@@ -38,14 +38,14 @@ public class DropDownListParamTest extends WorkingBrowserTest {
     /** Сравнение текста ответа с ожидаемым текстом*/
     @Test
     public void dropDownListTest() {
-        new Main(driver)
+        new MainPage(driver)
                 .openSite()
                 .clickCookieButton()
                 .scrollPageToEndOfList()
                 .clickQuestionButton(questionLocator);
 
-        new Main(driver);
-        String ActualAnswerText = driver.findElement(By.id(answerLocator)).getText();
-        assertEquals("Текст в ответе не соответствует ожидаемому результату.", answerText, ActualAnswerText);
+        new MainPage(driver);
+        String actualAnswerText = driver.findElement(By.id(answerLocator)).getText();
+        assertEquals("Текст в ответе не соответствует ожидаемому результату.", answerText, actualAnswerText);
     }
 }
