@@ -1,64 +1,97 @@
+import org.junit.Assert;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 import pageObject.MainPage;
 import pageObject.OrderPage;
 import pageObject.RentPage;
-import org.junit.Test;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 
+
+
+@RunWith(Parameterized.class)
 public class ScooterOrderingTest extends WorkingBrowserTest {
+    private final String name;
+    private final String surname;
+    private final String address;
+    private final String metro;
+    private final String number;
+    private final String date;
+    private final String comment;
 
-    /** Тест заказа через кнопку в хэдере*/
+
+    public ScooterOrderingTest(String name, String surname, String address, String metro, String number, String date, String comment) {
+        this.name = name;
+        this.surname = surname;
+        this.address = address;
+        this.metro = metro;
+        this.number = number;
+        this.date = date;
+        this.comment = comment;
+    }
+    @Parameterized.Parameters
+    public static Object[][] getInput(){
+        return new Object[][]{
+                {"Тест","Тестов","Москва","Черкизовская", "89999999999","25.10.2023", "Комментарий"},
+                {"Тест","Тестов","Москва","Сокольники", "88888888888","25.09.2023","Комментарий2!"}
+        };
+    }
+
+
     @Test
     public void scooterOrderingByHeaderOrderButton() {
-        new MainPage(driver)
-                .openSite()
-                .clickCookieButton()
-                .clickHeaderOrderButton();
 
-        new OrderPage(driver)
-                .sendFirstName("Тест")
-                .sendLastName("Тест")
-                .sendDeliveryAddress("Москва")
-                .selectMetroStation("Черкизовская")
-                .sendDeliveryPhoneNumber("89999999999")
-                .clickNextButton();
+        MainPage page = new MainPage(driver);
+        page.openSite();
+        page.clickCookieButton();
+        page.clickHeaderOrderButton();
 
-        boolean isDisplayed = new RentPage(driver)
-                .sendRentalDate("25.10.2023")
-                .setRentalTime()
-                .clickCheckBoxColourBlackPearl()
-                .sendComment("Комментарий")
-                .clickOrderButton()
-                .clickOrderButtonYes()
-                .isModalOrderWindowDisplayed();
-        assertFalse("Ошибка, окно заказа не появилось!", isDisplayed);
+        OrderPage pageOrder = new OrderPage(driver);
+        pageOrder.sendFirstName(name);
+        pageOrder.sendLastName(surname);
+        pageOrder.sendDeliveryAddress(address);
+        pageOrder.selectMetroStation(metro);
+        pageOrder.sendDeliveryPhoneNumber(number);
+        pageOrder.clickNextButton();
+
+        RentPage pageRent = new RentPage(driver);
+        pageRent.sendRentalDate(date);
+        pageRent.setRentalTime();
+        pageRent.clickCheckBoxColourBlackPearl();
+        pageRent.sendComment(comment);
+        pageRent.clickOrderButton();
+        pageRent.clickOrderButtonYes();
+        pageRent.isModalOrderWindowDisplayed();
+        Assert.assertFalse("Ошибка, окно заказа не появилось!", pageRent.isModalOrderWindowDisplayed());
+
     }
-    /** Тест заказа через кнопку в середине страницы*/
+
     @Test
     public void scooterOrderingByMiddleOrderButton() {
-        new MainPage(driver)
-                .openSite()
-                .clickCookieButton()
-                .clickMiddleOrderButton();
+        MainPage page = new MainPage(driver);
+        page.openSite();
+        page.clickCookieButton();
+        page.clickHeaderOrderButton();
 
-        new OrderPage(driver)
-                .sendFirstName("Тест")
-                .sendLastName("Тестов")
-                .sendDeliveryAddress("Москва")
-                .selectMetroStation("Сокольники")
-                .sendDeliveryPhoneNumber("88888888888")
-                .clickNextButton();
+        OrderPage pageOrder = new OrderPage(driver);
+        pageOrder.sendFirstName(name);
+        pageOrder.sendLastName(surname);
+        pageOrder.sendDeliveryAddress(address);
+        pageOrder.selectMetroStation(metro);
+        pageOrder.sendDeliveryPhoneNumber(number);
+        pageOrder.clickNextButton();
 
-        boolean isDisplayed = new RentPage(driver)
-                .sendRentalDate("25.09.2023")
-                .setRentalTime()
-                .clickCheckBoxColourGreyDespair()
-                .sendComment("Комментарий2!")
-                .clickOrderButton()
-                .clickOrderButtonYes()
-                .isModalOrderWindowDisplayed();
-        assertFalse("Ошибка, окно заказа не появилось!", isDisplayed);
+        RentPage pageRent = new RentPage(driver);
+        pageRent.sendRentalDate(date);
+        pageRent.setRentalTime();
+        pageRent.clickCheckBoxColourBlackPearl();
+        pageRent.sendComment(comment);
+        pageRent.clickOrderButton();
+        pageRent.clickOrderButtonYes();
+        pageRent.isModalOrderWindowDisplayed();
+        Assert.assertFalse("Ошибка, окно заказа не появилось!", pageRent.isModalOrderWindowDisplayed());
+
+
     }
-
 }
+
